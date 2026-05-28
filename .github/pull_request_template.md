@@ -13,9 +13,9 @@
 - [ ] `npm run build`
 - [ ] Smoke tested relevant flow
 
-## Screenshots
+## Product Screens
 
-Add screenshots for UI changes.
+Add product screens for UI changes.
 
 ## Risk Notes
 

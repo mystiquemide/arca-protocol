@@ -29,4 +29,4 @@ What other approaches did you consider?
 
 ## Additional Context
 
-Add relevant links, screenshots, or constraints.
+Add relevant links, product screens, or constraints.

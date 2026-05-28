@@ -32,6 +32,6 @@ What happened instead?
 - Backend database: SQLite / Postgres
 - Relevant env mode: local / staging / production
 
-## Logs Or Screenshots
+## Logs Or Product Screens
 
-Attach screenshots, API responses, or logs when useful. Do not include secrets.
+Attach product screens, API responses, or logs when useful. Do not include secrets.

@@ -2,6 +2,17 @@
 
 Insurance that pays before you complain.
 
+<p align="left">
+  <img alt="React 18" src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&labelColor=20232a&logo=react&logoColor=61DAFB">
+  <img alt="Vite 5" src="https://img.shields.io/badge/Vite-5-646CFF?style=for-the-badge&labelColor=20232a&logo=vite&logoColor=FFD62E">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge&labelColor=20232a&logo=fastapi&logoColor=white">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&labelColor=20232a&logo=python&logoColor=FFD43B">
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind-CSS-38BDF8?style=for-the-badge&labelColor=20232a&logo=tailwindcss&logoColor=38BDF8">
+  <img alt="Privy Auth" src="https://img.shields.io/badge/Privy-Auth-111827?style=for-the-badge&labelColor=20232a">
+  <img alt="Circle USDC" src="https://img.shields.io/badge/Circle-USDC-2775CA?style=for-the-badge&labelColor=20232a">
+  <img alt="Rialo Roadmap" src="https://img.shields.io/badge/Rialo-Roadmap-A9DDD3?style=for-the-badge&labelColor=20232a">
+</p>
+
 Arca is a parametric insurance prototype for flight delay, weather, and logistics risk. It replaces manual claims with policy conditions that can be monitored from real-world data feeds, then credits payouts automatically when thresholds are met.
 
 ![Arca landing page](docs/assets/arca-landing.png)
@@ -12,7 +23,7 @@ Traditional insurance asks users to file a claim, wait for review, and argue ove
 
 The current repository is a full-stack product prototype. It includes a polished Vite/React frontend, a FastAPI backend, SQLite local persistence, Postgres deployment scaffolding, Privy authentication foundations, provider readiness checks, and Circle payout-rail plumbing for controlled internal testing.
 
-## Screenshots
+## Product Screens
 
 | Desktop | Mobile |
 | --- | --- |
@@ -157,7 +168,7 @@ High-level flow:
 backend/                 FastAPI app, database adapter, migrations, tests
 deploy/                  production and staging env templates
 docs/                    product, deployment, operations, and recovery docs
-docs/assets/             README screenshots
+docs/assets/             README product screens
 public/                  static public assets
 scripts/                 smoke, ops, and database utility scripts
 src/                     React frontend
