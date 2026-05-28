@@ -19,3 +19,4 @@ memory.md
 build/
 coverage/
 .pytest_cache/
+.vercel
