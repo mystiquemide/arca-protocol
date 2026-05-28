@@ -1,0 +1,16 @@
+{
+  "name": "Arca Protocol",
+  "short_name": "Arca",
+  "description": "Parametric insurance for real-world climate and logistics risk.",
+  "icons": [
+    {
+      "src": "/arca-favicon.png",
+      "sizes": "426x556",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#101827",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
