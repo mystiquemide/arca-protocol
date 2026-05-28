@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rialo-green: #a9ddd3;
+  --rialo-dark: #040507;
+  --rialo-white: #e8e3d5;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--rialo-dark);
+  color: var(--rialo-white);
+  overflow-x: hidden;
+}
+
+/* Cinematic Background Setup */
+.cinematic-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  background-color: var(--rialo-dark-green);
+}
+
+.cinematic-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  transform: scale(1.0);
+}
+
+.cinematic-bg.active {
+  opacity: 1;
+}
+
+/* Deep Rialo overlay to let the images breathe while keeping text readable */
+.bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(135deg, rgba(4,5,7,0.85) 0%, rgba(4,5,7,0.4) 100%);
+}
+
+
+/* Premium Glassmorphism utility */
+.glass-panel {
+  background: rgba(232, 227, 213, 0.03);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(169, 221, 211, 0.15);
+  border-top: 1px solid rgba(169, 221, 211, 0.3);
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.ambient-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 80vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(169, 221, 211, 0.08) 0%, rgba(4, 5, 7, 0) 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Cinematic Reveal Animations */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-300 { animation-delay: 300ms; }
+
+/* Complex Radar Animations */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.animate-spin-slow {
+  animation: spinSlow 12s linear infinite;
+}
+.animate-spin-reverse {
+  animation: spinReverse 8s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}

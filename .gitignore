@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*
+!.env.example
+
+backend/.venv/
+backend/data/
+backups/
+__pycache__/
+*.pyc
+
+# Internal agent/project memory
+memory.md
+**/memory.md
+
+# Generated outputs and test artifacts
+build/
+coverage/
+.pytest_cache/

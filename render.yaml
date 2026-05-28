@@ -1,0 +1,72 @@
+services:
+  - type: web
+    name: arca-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /ready
+    autoDeploy: false
+    envVars:
+      - key: ARCA_ENV
+        value: production
+      - key: ARCA_DATABASE_URL
+        sync: false
+      - key: ARCA_CORS_ORIGINS
+        sync: false
+      - key: ARCA_AUTH_REQUIRED
+        value: "true"
+      - key: ARCA_AUTH_PROVIDER
+        value: privy
+      - key: ARCA_PRIVY_APP_ID
+        sync: false
+      - key: ARCA_PRIVY_JWKS_URL
+        sync: false
+      - key: ARCA_ADMIN_API_TOKEN
+        generateValue: true
+      - key: ARCA_ENABLE_DEV_ENDPOINTS
+        value: "false"
+      - key: ARCA_RATE_LIMIT_ENABLED
+        value: "true"
+      - key: ARCA_RATE_LIMIT_BACKEND
+        value: redis
+      - key: ARCA_RATE_LIMIT_REQUESTS
+        value: "120"
+      - key: ARCA_RATE_LIMIT_WINDOW_SECONDS
+        value: "60"
+      - key: ARCA_RATE_LIMIT_GATEWAY_MANAGED
+        value: "false"
+      - key: ARCA_REDIS_URL
+        sync: false
+      - key: ARCA_LOG_LEVEL
+        value: INFO
+      - key: ARCA_LOG_REQUESTS
+        value: "true"
+      - key: ARCA_INITIAL_RESERVE_USDC
+        value: "25000"
+      - key: ARCA_ENFORCE_RESERVE_CAPS
+        value: "true"
+      - key: ARCA_MIN_RESERVE_RATIO
+        value: "1.5"
+      - key: ARCA_MAX_POLICY_PAYOUT_USDC
+        value: "5000"
+      - key: ARCA_FLIGHTAWARE_API_KEY
+        sync: false
+      - key: ARCA_LOGISTICS_PROVIDER
+        value: simulation
+      - key: ARCA_CIRCLE_TRANSFERS_ENABLED
+        value: "false"
+      - key: ARCA_CIRCLE_RETRY_MAX_ATTEMPTS
+        value: "3"
+      - key: ARCA_CIRCLE_RETRY_DELAY_SECONDS
+        value: "300"
+      - key: ARCA_CIRCLE_RETRY_BACKOFF_MULTIPLIER
+        value: "2"
+      - key: ARCA_CIRCLE_RETRY_MAX_DELAY_SECONDS
+        value: "3600"
+      - key: ARCA_CIRCLE_RETRY_WORKER_ENABLED
+        value: "false"
+      - key: ARCA_CIRCLE_RETRY_WORKER_INTERVAL_SECONDS
+        value: "60"
+      - key: ARCA_CIRCLE_RETRY_WORKER_BATCH_SIZE
+        value: "10"

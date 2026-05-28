@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  verify:
+    name: Lint, build, and auth smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      ARCA_DATABASE_URL: /tmp/arca-ci.sqlite3
+      ARCA_AUTH_REQUIRED: "true"
+      ARCA_AUTH_PROVIDER: test
+      ARCA_ENABLE_DEV_ENDPOINTS: "true"
+      ARCA_RATE_LIMIT_ENABLED: "false"
+      ARCA_LOG_REQUESTS: "true"
+      ARCA_CIRCLE_TRANSFERS_ENABLED: "false"
+      ARCA_WITHDRAWAL_SYNC_INTERVAL_SECONDS: "0"
+      ARCA_POLICY_SYNC_INTERVAL_SECONDS: "0"
+      VITE_ARCA_API_URL: http://127.0.0.1:8000
+      VITE_PRIVY_APP_ID: cmpijscdo00f20cjxjq3bflcp
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Install backend dependencies
+        run: |
+          python -m venv backend/.venv
+          backend/.venv/bin/python -m pip install --upgrade pip
+          backend/.venv/bin/pip install -r backend/requirements.txt
+
+      - name: Compile backend
+        run: backend/.venv/bin/python -m py_compile backend/app/*.py
+
+      - name: Test backend
+        run: npm run test:backend
+
+      - name: Lint frontend
+        run: npm run lint
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Run migrations
+        run: npm run migrate
+
+      - name: Start auth-required API
+        run: |
+          backend/.venv/bin/python -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 > /tmp/arca-api.log 2>&1 &
+          echo $! > /tmp/arca-api.pid
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:8000/ready >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/arca-api.log
+          exit 1
+
+      - name: Assert auth is required
+        run: |
+          status="$(curl -sS -o /tmp/auth-me.json -w "%{http_code}" http://127.0.0.1:8000/auth/me)"
+          test "$status" = "401"
+          cat /tmp/auth-me.json
+
+      - name: Run auth smoke
+        run: npm run smoke:auth
+
+      - name: Run ops health probe
+        run: npm run ops:health
+
+      - name: Upload API logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arca-api-log
+          path: /tmp/arca-api.log
+          if-no-files-found: ignore
+
+      - name: Stop API
+        if: always()
+        run: |
+          if [ -f /tmp/arca-api.pid ]; then
+            kill "$(cat /tmp/arca-api.pid)" || true
+          fi
